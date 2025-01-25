@@ -1,0 +1,19 @@
+services:
+    database:
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./sql:/docker-entrypoint-initdb.d
+            - ./.mysql:/var/lib/mysql
+        env_file: .env
+
+    server:
+        depends_on:
+            - database
+        build: .
+        ports:
+            - "8080:8080"
+        env_file: .env
+        volumes:
+            - ./src:/app/src
