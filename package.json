@@ -4,7 +4,8 @@
     "description": "",
     "main": "dist/server/index.js",
     "scripts": {
-        "dev": "node --watch src/server/index.js"
+        "dev": "npm run build-routes && tsc-watch --onSuccess \"node dist/server/index.js\"",
+        "build-routes": "tsoa routes"
     },
     "author": "",
     "license": "SEE LICENSE IN LICENSE",
@@ -16,7 +17,9 @@
         "typescript": "^5.7.3"
     },
     "devDependencies": {
-        "@types/express": "^5.0.0"
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.10.10",
+        "tsc-watch": "^6.2.1"
     },
     "type": "module"
 }
