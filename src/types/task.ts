@@ -3,14 +3,20 @@ export interface Task {
     readonly title: string;
     readonly description: string;
     readonly createdOn: string;
+    readonly completedOn: string;
     readonly completed: boolean;
-    readonly createdBy: number;
-    readonly columnId?: number;
+    readonly createdBy: string;
+    readonly assignee: string;
+    readonly columnId: number;
+    readonly columnOrder: number;
 }
 
 export type TaskCreateParams = Pick<
     Task,
-    "title" | "description" | "createdBy" | "columnId"
+    "title" | "description" | "createdBy" | "assignee" | "columnId"
 >;
-export type TaskUpdateParams = TaskCreateParams;
+export type TaskUpdateParams = Omit<
+    TaskCreateParams,
+    "id" | "createdOn" | "createdBy"
+>;
 export type TaskMoveParams = Pick<Task, "columnId">;

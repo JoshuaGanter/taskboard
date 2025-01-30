@@ -8,8 +8,13 @@ import {
     Route,
     SuccessResponse,
 } from "tsoa";
-import { Task, TaskCreateParams, TaskUpdateParams } from "../../types/task.js";
-import { TaskService } from "../services/task.service.js";
+import {
+    Task,
+    TaskCreateParams,
+    TaskMoveParams,
+    TaskUpdateParams,
+} from "../../types/task.js";
+import { TaskService } from "../tasks/task.service.js";
 
 @Route("tasks")
 export class TaskController extends Controller {
@@ -31,6 +36,14 @@ export class TaskController extends Controller {
         @Body() taskUpdateParams: TaskUpdateParams,
     ): Promise<Task> {
         return await new TaskService().update(taskId, taskUpdateParams);
+    }
+
+    @Post("{taskId}/moveTo")
+    public async moveTask(
+        @Path() taskId: number,
+        @Body() column: TaskMoveParams,
+    ): Promise<Task> {
+        return await new TaskService().moveTo(taskId, column);
     }
 
     @SuccessResponse("201", "Created")

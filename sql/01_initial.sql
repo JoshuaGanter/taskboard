@@ -1,29 +1,23 @@
 DROP TABLE IF EXISTS t_tasks;
-DROP TABLE IF EXISTS t_users;
-
-CREATE TABLE t_users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    created_on DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE t_columns (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL
-);
 
 CREATE TABLE t_tasks (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    description TEXT(65535) NOT NULL,
+    description TEXT(65535),
     created_on DATETIME DEFAULT CURRENT_TIMESTAMP,
-    completed BOOLEAN NOT NULL,
-    created_by BIGINT UNSIGNED NOT NULL,
-    column_id BIGINT UNSIGNED NOT NULL,
-    FOREIGN KEY (created_by) REFERENCES t_users(id),
-    FOREIGN KEY (column_id) REFERENCES t_columns(id)
+    completed_on DATETIME,
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    created_by VARCHAR(255),
+    assignee VARCHAR(255),
+    column_id INT UNSIGNED NOT NULL,
+    column_order FLOAT(25) NOT NULL DEFAULT 0
 );
 
-INSERT INTO t_users (name, email) VALUES ('Joshua Ganter', 'mail@joshuaganter.de');
-INSERT INTO t_columns (title) VALUES ('TODO'), ('IN PROGRESS'), ('ACCEPTANCE TESTING'), ('DONE');
+INSERT INTO t_tasks (title, description, created_by, assignee, column_id) VALUES
+("Portfolio erstellen", "Ein Portfolio erstellen, das meine Fähigkeiten darstellt.", "Joshua", "Joshua", 1),
+("Wäsche waschen", "", "Joshua", "Joshua", 0),
+("Einkaufen", "3x Bananen, 1x Haferflocken, 1l Mandelmilch", "Joshua", "Joshua", 3),
+("Go lernen", "https://gowebexamples.com/", "Joshua", "Joshua", 0),
+("Training", "", "FitBot", "Joshua", 3),
+("Buch kaufen", "", "Joshua", "Joshua", 3),
+("Steuererklärung", "", "Joshua", "Steuerberatung", 2);

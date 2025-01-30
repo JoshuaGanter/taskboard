@@ -1,5 +1,10 @@
-import { Task, TaskCreateParams, TaskUpdateParams } from "../../types/task.js";
-import { DatabaseService } from "./database.service.js";
+import {
+    Task,
+    TaskCreateParams,
+    TaskMoveParams,
+    TaskUpdateParams,
+} from "../../types/task.js";
+import { DatabaseService } from "../database.service.js";
 
 export class TaskService {
     public async getAll(): Promise<Task[]> {
@@ -48,15 +53,39 @@ export class TaskService {
     ): Promise<Task> {
         const connection = await DatabaseService.getConnection();
         await connection.query(
-            "UPDATE t_tasks SET title = ?, description = ?, created_by = ?, column_id = ? WHERE id = ?",
+            "UPDATE t_tasks SET title = ?, description = ?, column_id = ? WHERE id = ?",
             [
                 taskUpdateParams.title,
                 taskUpdateParams.description,
-                taskUpdateParams.createdBy,
+                taskUpdateParams.assignee,
                 taskUpdateParams.columnId,
                 taskId,
             ],
         );
+        return await this.get(taskId);
+    }
+
+    public async moveTo(
+        taskId: number,
+        taskMoveParams: TaskMoveParams,
+    ): Promise<Task> {
+        const connection = await DatabaseService.getConnection();
+        if (taskMoveParams.columnId === 3) {
+            await connection.query(
+                "UPDATE t_tasks SET completed = true, completed_on = CURRENT_TIMESTAMP, column_id = 3 WHERE id = ?",
+                [
+                    taskId,
+                ],
+            );
+        } else {
+            await connection.query(
+                "UPDATE t_tasks SET column_id = ? WHERE id = ?",
+                [
+                    taskMoveParams.columnId,
+                    taskId,
+                ],
+            );
+        }
         return await this.get(taskId);
     }
 }
