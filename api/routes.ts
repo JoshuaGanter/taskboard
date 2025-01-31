@@ -4,7 +4,7 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { TaskController } from './tasks/task.controller.js';
+import { TaskController } from './controllers/task.controller.js';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
@@ -83,7 +83,7 @@ export function RegisterRoutes(app: Router) {
     
         const argsTaskController_getAllTasks: Record<string, TsoaRoute.ParameterSchema> = {
         };
-        app.get('/tasks',
+        app.get('/api/tasks',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.getAllTasks)),
 
@@ -113,7 +113,7 @@ export function RegisterRoutes(app: Router) {
         const argsTaskController_getTask: Record<string, TsoaRoute.ParameterSchema> = {
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
         };
-        app.get('/tasks/:taskId',
+        app.get('/api/tasks/:taskId',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.getTask)),
 
@@ -144,7 +144,7 @@ export function RegisterRoutes(app: Router) {
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
                 taskUpdateParams: {"in":"body","name":"taskUpdateParams","required":true,"ref":"TaskUpdateParams"},
         };
-        app.put('/tasks/:taskId',
+        app.put('/api/tasks/:taskId',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.updateTask)),
 
@@ -175,7 +175,7 @@ export function RegisterRoutes(app: Router) {
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
                 column: {"in":"body","name":"column","required":true,"ref":"TaskMoveParams"},
         };
-        app.post('/tasks/:taskId/moveTo',
+        app.post('/api/tasks/:taskId/moveTo',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.moveTask)),
 
@@ -205,7 +205,7 @@ export function RegisterRoutes(app: Router) {
         const argsTaskController_createTask: Record<string, TsoaRoute.ParameterSchema> = {
                 requestBody: {"in":"body","name":"requestBody","required":true,"ref":"TaskCreateParams"},
         };
-        app.post('/tasks',
+        app.post('/api/tasks',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.createTask)),
 

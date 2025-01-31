@@ -3,8 +3,8 @@ import {
     TaskCreateParams,
     TaskMoveParams,
     TaskUpdateParams,
-} from "../../types/task.js";
-import { DatabaseService } from "../database.service.js";
+} from "../types/task.js";
+import { DatabaseService } from "./database.service.js";
 
 export class TaskService {
     public async getAll(): Promise<Task[]> {

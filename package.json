@@ -4,8 +4,11 @@
     "description": "",
     "main": "dist/server/index.js",
     "scripts": {
-        "dev": "npm run build-routes && tsc-watch --onSuccess \"node dist/server/index.js\"",
-        "build-routes": "tsoa routes"
+        "dev-server": "npm run build-tsoa && tsc-watch --onSuccess \"node dist/index.js\"",
+        "dev-frontend": "esbuild --format=esm --bundle --sourcemap --watch public/app.ts public/index.html public/style.css --loader:.html=copy --loader:.css=copy --outdir=dist/public",
+        "build-frontend": "esbuild --format=esm --bundle --minify public/app.ts public/index.html public/style.css --loader:.html=copy --loader:.css=copy --outdir=dist/public",
+        "build-tsoa": "tsoa spec && tsoa routes",
+        "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-frontend\""
     },
     "author": "",
     "license": "SEE LICENSE IN LICENSE",
@@ -19,6 +22,8 @@
     "devDependencies": {
         "@types/express": "^5.0.0",
         "@types/node": "^22.10.10",
+        "concurrently": "^9.1.2",
+        "esbuild": "^0.24.2",
         "tsc-watch": "^6.2.1"
     },
     "type": "module"

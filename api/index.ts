@@ -1,4 +1,5 @@
 import express, { json, urlencoded } from "express";
+import path from "path";
 import { RegisterRoutes } from "./routes.js";
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(
     }),
 );
 app.use(json());
+app.use("/", express.static(path.resolve(import.meta.dirname, "public")));
 
 RegisterRoutes(app);
 

@@ -1,6 +1,6 @@
 {
     "include": [
-        "./src/**/*"
+        "api/**/*"
     ],
     "compilerOptions": {
         "target": "es2016",

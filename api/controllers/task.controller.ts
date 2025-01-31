@@ -13,8 +13,8 @@ import {
     TaskCreateParams,
     TaskMoveParams,
     TaskUpdateParams,
-} from "../../types/task.js";
-import { TaskService } from "../tasks/task.service.js";
+} from "../types/task.js";
+import { TaskService } from "../services/task.service.js";
 
 @Route("tasks")
 export class TaskController extends Controller {

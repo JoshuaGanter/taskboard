@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    font-family: var(--taskboard-font-family);
+    color: var(--taskboard-fg-level-1);
+    background-color: var(--taskboard-bg-level-1);
+}
+
+:root {
+    --taskboard-font-family: Inter, Verdana, Arial, Helvetica, sans-serif;
+
+    --taskboard-fg-level-1: #242424;
+    --taskboard-bg-level-1: #fbfbfb;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --taskboard-fg-level-1: #ccc;
+        --taskboard-bg-level-1: #383838;
+    }
+}
